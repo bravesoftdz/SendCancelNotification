@@ -23,7 +23,9 @@ uses
   Androidapi.JNI.Media,
   Androidapi.JNIBridge,
   Androidapi.JNI.Net,
-  Androidapi.Helpers;
+  Androidapi.Helpers
+  //,uMain
+  ;
 
   type TPlatformNotificationCenter = class(TBaseNotificationCenter)
   protected
@@ -105,8 +107,10 @@ implementation
 
   { TNotificationCenterAndroid }
 
-
-
+procedure AddLog(sMessage : String);
+begin
+//  NotificationsForm.mmo1.lines.Add( sMessage );
+end;
 
 
 function GetNotificationService: JNotificationManager;
@@ -383,6 +387,8 @@ begin
   if FExternalStore.Contains(AName) then
   begin
     ID := FExternalStore.GetID(AName);
+    AddLog( '[NCA.CSN] ID "'+ ID.ToString +'" name "'+ AName +'"' );
+
     try
       Alarm := TJNotificationAlarm.Create;
       Intent := TJIntent.Create;
@@ -394,6 +400,8 @@ begin
     finally
       FExternalStore.RemoveNotification(AName);
     end;
+  end else begin
+    AddLog( '[NCA.CSN] name "'+ AName +'" not found');
   end;
 end;
 
@@ -690,6 +698,7 @@ var
   //NotificationsStr: JString;
   Notifications: TStringList;
   IDStr: string;
+  NameStr: string;
   Notification: string;
 begin
   Notifications := GetAllNotificationsNamesNonFiltered;
@@ -699,11 +708,14 @@ begin
 
     for Notification in Notifications do
     begin
-      IDStr := Notification.Substring(Notification.IndexOf('=') + 1);
-      if TryStrToInt(IDStr, Result) then
-        Break
-      else
-        Result := -1;
+      IDStr   := Notification.Substring(Notification.IndexOf('=') + 1);
+      NameStr := Copy( Notification, 0, pos('=', Notification)-1 );
+      if NameStr = AName then begin
+        if TryStrToInt(IDStr, Result) then
+          Break
+        else
+          Result := -1;
+      end;
     end;
   finally
     Notifications.DisposeOf;

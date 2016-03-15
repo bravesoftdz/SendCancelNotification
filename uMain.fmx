@@ -13,7 +13,9 @@ object NotificationsForm: TNotificationsForm
     Size.PlatformDefault = False
     TabOrder = 0
     object Label1: TLabel
+      OnTap = Label1Tap
       Align = Client
+      HitTest = True
       Size.Width = 384.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
@@ -36,7 +38,7 @@ object NotificationsForm: TNotificationsForm
       Size.Width = 137.000000000000000000
       Size.Height = 48.000000000000000000
       Size.PlatformDefault = False
-      Text = 'Cancel Scheduled'
+      Text = 'Cancel "Three"'
       OnClick = SpeedButton1Click
     end
     object SpeedButton2: TSpeedButton
@@ -92,6 +94,9 @@ object NotificationsForm: TNotificationsForm
       Value = 3.000000000000000000
       Position.X = 287.000000000000000000
       Position.Y = 8.000000000000000000
+      Size.Width = 97.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
     end
     object btnSendMultipleNotifications: TButton
       Align = Client

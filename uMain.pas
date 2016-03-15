@@ -39,6 +39,7 @@ type
     procedure NotificationCReceiveLocalNotification(Sender: TObject;
       ANotification: TNotification);
     procedure btnGetRemainingNotificationsClick(Sender: TObject);
+    procedure Label1Tap(Sender: TObject; const Point: TPointF);
   private
     { Private declarations }
 
@@ -145,6 +146,11 @@ begin
   end;
 end;
 
+procedure TNotificationsForm.Label1Tap(Sender: TObject; const Point: TPointF);
+begin
+  mmo1.Lines.Clear;
+end;
+
 procedure TNotificationsForm.NotificationCReceiveLocalNotification(
   Sender: TObject; ANotification: TNotification);
 begin
@@ -156,8 +162,7 @@ end;
 procedure TNotificationsForm.SpeedButton1Click(Sender: TObject);
 begin
     { providing the fact that you already have a MyNotification previously issued }
-  NotificationC.CancelNotification('MyNotification');
-  mmo1.Lines.Clear;
+  NotificationC.CancelNotification('Three');
 end;
 
 procedure TNotificationsForm.SpeedButton2Click(Sender: TObject);
